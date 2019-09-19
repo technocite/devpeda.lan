@@ -1,26 +1,26 @@
 FROM debian:stable
 
 # Redirection de apt sur notre mirroir local
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-RUN sed -e 's/httpredir.debian.org/10.10.24.251:9999/g' /etc/apt/sources.list.ba                                                                                                                                                             k > /etc/apt/sources.list
+# RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+# RUN sed -e 's/httpredir.debian.org/10.10.24.251:9999/g' /etc/apt/sources.list.bak > /etc/apt/sources.list
 
 # Pre configuration de postfix
-RUN echo "postfix postfix/mailname string dev.pedagogique.lan" | debconf-set-sel                                                                                                                                                             ections
-RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set                                                                                                                                                             -selections
+RUN echo "postfix postfix/mailname string dev.pedagogique.lan" | debconf-set-selections
+RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
 
 # Pre configuration de mysql-serveur
-RUN echo "mysql-server mysql-server/root_password password tttttt" | debconf-set                                                                                                                                                             -selections
-RUN echo "mysql-server mysql-server/root_password_again password tttttt" | debco                                                                                                                                                             nf-set-selections
+RUN echo "mysql-server mysql-server/root_password password tttttt" | debconf-set-selections
+RUN echo "mysql-server mysql-server/root_password_again password tttttt" | debconf-set-selections
 
 # Pre configuration de phpmyadmin
-#RUN echo "phpmyadmin phpmyadmin/dbconfig-install boolean false" | debconf-set-s                                                                                                                                                             elections
-#RUN echo "phpmyadmin phpmyadmin/app-password-confirm password tttttt" | debconf                                                                                                                                                             -set-selections
-#RUN echo "phpmyadmin phpmyadmin/mysql/admin-pass password tttttt" | debconf-set                                                                                                                                                             -selections
-#RUN echo "phpmyadmin phpmyadmin/mysql/app-pass password tttttt" | debconf-set-s                                                                                                                                                             elections
-#RUN echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect none" | debco                                                                                                                                                             nf-set-selections
+#RUN echo "phpmyadmin phpmyadmin/dbconfig-install boolean false" | debconf-set-selections
+#RUN echo "phpmyadmin phpmyadmin/app-password-confirm password tttttt" | debconf-set-selections
+#RUN echo "phpmyadmin phpmyadmin/mysql/admin-pass password tttttt" | debconf-set-selections
+#RUN echo "phpmyadmin phpmyadmin/mysql/app-pass password tttttt" | debconf-set-selections
+#RUN echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect none" | debconf-set-selections
 
 # Installation des paquets necessaires
-RUN apt-get -y update && apt-get install -y apache2 debconf-utils expect php5 ph                                                                                                                                                             p5-mysql mysql-server nano postfix samba
+RUN apt-get -y update && apt-get install -y apache2 debconf-utils expect php5 php5-mysql mysql-server nano postfix samba
 RUN service apache2 start
 RUN service mysql start
 RUN apt-get -q -y install phpmyadmin
@@ -28,7 +28,7 @@ RUN apt-get -q -y install phpmyadmin
 RUN echo '#!/usr/bin/expect -f' > install-phpmyadmin.sh; \
         echo "set timeout -1" >> install-phpmyadmin.sh; \
         echo "spawn apt-get install -y phpmyadmin" >> install-phpmyadmin.sh; \
-        echo "expect \"Configure database for phpmyadmin with dbconfig-common?\"                                                                                                                                                             " >> install-phpmyadmin.sh; \
+        echo "expect \"Configure database for phpmyadmin with dbconfig-common?\"" >> install-phpmyadmin.sh; \
         echo "send \"n\r\"" >> install-phpmyadmin.sh;
 
 RUN chmod +x install-phpmyadmin.sh
@@ -50,8 +50,8 @@ ADD ./etc/aliases /etc/aliases
 RUN newaliases
 
 # Ajout des fichiers de configuration de apache
-ADD ./etc/apache2/sites-available/dev.pedagogique.lan.conf /etc/apache2/sites-av                                                                                                                                                             ailable/dev.pedagogique.lan.conf
-ADD ./etc/apache2/sites-available/virtu.conf /etc/apache2/sites-available/virtu.                                                                                                                                                             conf
+ADD ./etc/apache2/sites-available/dev.pedagogique.lan.conf /etc/apache2/sites-available/dev.pedagogique.lan.conf
+ADD ./etc/apache2/sites-available/virtu.conf /etc/apache2/sites-available/virtu.conf
 
 # Activaion des sites dans apache2
 RUN a2ensite dev.peda*
