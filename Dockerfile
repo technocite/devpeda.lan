@@ -25,18 +25,18 @@ RUN service apache2 start
 RUN service mysql start
 RUN apt-get -q -y install phpmyadmin
 
-RUN echo '#!/usr/bin/expect -f' > install-phpmyadmin.sh; \
-        echo "set timeout -1" >> install-phpmyadmin.sh; \
-        echo "spawn apt-get install -y phpmyadmin" >> install-phpmyadmin.sh; \
-        echo "expect \"Configure database for phpmyadmin with dbconfig-common?\"" >> install-phpmyadmin.sh; \
-        echo "send \"n\r\"" >> install-phpmyadmin.sh;
+#RUN echo '#!/usr/bin/expect -f' > install-phpmyadmin.sh; \
+#        echo "set timeout -1" >> install-phpmyadmin.sh; \
+#        echo "spawn apt-get install -y phpmyadmin" >> install-phpmyadmin.sh; \
+#        echo "expect \"Configure database for phpmyadmin with dbconfig-common?\"" >> install-phpmyadmin.sh; \
+#        echo "send \"n\r\"" >> install-phpmyadmin.sh;
 
-RUN chmod +x install-phpmyadmin.sh
+#RUN chmod +x install-phpmyadmin.sh
 
 RUN mysqld & \
         service apache2 start; \
         sleep 5; \
-        ./install-phpmyadmin.sh; \
+#        ./install-phpmyadmin.sh; \
         sleep 10; \
         mysqladmin -u root shutdown
 
