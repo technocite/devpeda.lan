@@ -23,7 +23,7 @@ RUN echo "mysql-server mysql-server/root_password_again password tttttt" | debco
 RUN apt-get -y update && apt-get install -y apt-utils apache2 debconf-utils expect php php-mysql mariadb-server nano postfix samba
 RUN service apache2 start
 RUN service mysql start
-RUN apt-get -q -y install phpmyadmin
+#RUN apt-get -q -y install phpmyadmin
 
 #RUN echo '#!/usr/bin/expect -f' > install-phpmyadmin.sh; \
 #        echo "set timeout -1" >> install-phpmyadmin.sh; \
