@@ -20,7 +20,9 @@ RUN echo "mysql-server mysql-server/root_password_again password tttttt" | debco
 #RUN echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect none" | debconf-set-selections
 
 # Installation des paquets necessaires
-RUN apt-get -y update && apt-get install -y apt-utils apache2 debconf-utils expect php php-mysql mariadb-server nano postfix samba
+RUN apt-get -y update && apt-get install -y --no-install-recommends apt-utils apache2 debconf-utils expect php php-mysql mariadb-server nano postfix samba  \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 RUN service apache2 start
 RUN service mysql start
 #RUN apt-get -q -y install phpmyadmin
