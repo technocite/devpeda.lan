@@ -513,12 +513,12 @@ var ciDebugBar = {
 	  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches;
 
 		// If a cookie is set with a value, we force the color scheme
-		if (ciDebugBar.readCookie('debug-bar-theme') === 'dark')
+		if (isLightMode === 'dark' or ciDebugBar.readCookie('debug-bar-theme') === 'dark')
 		{
 			ciDebugBar.removeClass(ciDebugBar.toolbarContainer, 'light');
 			ciDebugBar.addClass(ciDebugBar.toolbarContainer, 'dark');
 		}
-		else if (ciDebugBar.readCookie('debug-bar-theme') === 'light')
+		else if (isLightMode === 'light' or ciDebugBar.readCookie('debug-bar-theme') === 'light')
 		{
 			ciDebugBar.removeClass(ciDebugBar.toolbarContainer, 'dark');
 			ciDebugBar.addClass(ciDebugBar.toolbarContainer, 'light');
