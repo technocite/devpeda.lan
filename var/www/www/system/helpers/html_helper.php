@@ -254,7 +254,7 @@ if (! function_exists('script_tag'))
 			}
 		}
 
-		return $script . 'type="text/javascript"' . '></script>';
+		return $script . 'type="text/javascript"></script>';
 	}
 }
 

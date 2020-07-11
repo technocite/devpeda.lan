@@ -648,7 +648,7 @@ if (! function_exists('form_datalist'))
 
 		foreach ($options as $option)
 		{
-			$out .= "<option value='$option'>" . "\n";
+			$out .= "<option value='$option'>\n";
 		}
 
 		return $out . ('</datalist>' . "\n");
