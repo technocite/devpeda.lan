@@ -431,8 +431,8 @@ class Connection extends BaseConnection implements ConnectionInterface
 			'_',
 		], [
 			'\\' . $this->likeEscapeChar,
-			'\\' . '%',
-			'\\' . '_',
+			'\\%',
+			'\\_',
 		], $str
 		);
 	}
